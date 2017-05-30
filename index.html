@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" ng-app="app">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta name=apple-mobile-web-app-status-bar-style content=black>
+    <meta name="description" content="security hub">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+    <title>Marvel test - Grability - Zilerimar Fernandez</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="./css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="./css/custom-marvel.css"/>
+    <!-- <link rel="stylesheet" href="./css/font-awesome.min.css"/> -->
   </head>
-  <body>
+  <body ng-controller="appController" ng-cloak>
+    <div class="container-fluid">
+      <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+      <div id="main">
+        <!-- Barra de navegacion -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container-fluid">
+           <div class="navbar-header">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="#"><img src="./images/logo.png" width="80" height="40" alt=""></a>
+           </div>
+           <div id="navbar" class="navbar-collapse collapse">
+             <div class="col-lg-5 col-lg-offset-3 input-group">
+                <form role="form">
+                  <div class="form-group has-feedback">
+                    <input id="search" type="text" class="form-control" placeholder="Search character" />
+                    <i class="form-control-feedback"><img src="./images/export/icons/search.png" alt="" width="25px" height="25px"></i>
+                  </div>
+                </form>
+              </div>
+           </div>
+         </div>
+       </nav>
+
+        <!-- Use any element to open the sidenav -->
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 main">
+            <ng-include src="'./views/view-home.html'"></ng-include>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 favorites">
+            <h1>
+              Esto es una columna
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Grability 2017 - Todos los derechos reservados
+      <img src="./images/export/grability-logo.png" alt="">
+    </footer>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Angularjs  -->
+    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./node_modules/angular-route/angular-route.min.js"></script>
+    <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="./node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="./js/app.js" charset="utf-8"></script>
+    <script src="./js/shared/menu.js"></script>
 
   </body>
 </html>
