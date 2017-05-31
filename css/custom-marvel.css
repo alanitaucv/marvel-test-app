@@ -3,12 +3,10 @@ body{
 }
 .navbar-brand{
   margin-top: -5px;
-  /*margin-left: 40px;*/
   padding-left: 40px;
 }
 
-.navbar-center
-{
+.navbar-center{
     position: absolute;
     width: 100%;
     text-align: center;
@@ -23,7 +21,6 @@ body{
 }
 
 #search{
-  /*margin-top: 10px;*/
   margin-bottom: 10px;
 }
 
@@ -34,8 +31,23 @@ body{
 input{
   border-radius: 2px !important;
 }
-input:focus{
+input:focus, select:focus{
   border-color: rgba(236, 29, 35, 0.52) !important;
+}
+
+select.input-lg {
+  font-size: 0.9em;
+  font-weight: bold;
+  border-radius: 0px;
+}
+
+select + i {
+  float: right;
+  margin-top: -30px;
+  margin-right: 5px;
+  pointer-events: none;
+  background-color: #fff;
+  padding-right: 5px;
 }
 
 .favorites{
@@ -61,4 +73,128 @@ footer img{
   width: 50px;
   height: 50px;
   margin-left: 62%;
+}
+.marvel-header{
+  margin-bottom: 20px;
+}
+.subtitle{
+  font-weight: 700;
+  font-weight: bold;
+}
+.order{
+  margin-top: 20px;
+  border-radius: 1px !important;
+}
+.character-container{
+  padding: 20px 10px 20px 25px;
+}
+.character-description{
+  background-color: #ffffff;
+}
+.character-name{
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 16px;
+  margin-top: -11px;
+}
+.character-description:hover .character-name{
+  color: #ED1D23;
+}
+.character-profile{
+  width: 180px;
+  height: 180px;
+  border-radius: 100%;
+  margin-top: -15px;
+  margin-left: -15px;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.37);
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.37);
+  -moz-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.character-profile:hover{
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.description-text{
+  padding-right: 15px;
+  color: #565656;
+  font-family: 'Poppins', sans-serif;
+}
+.related-comics{
+  color: #565656;
+  padding: 10px 20px 15px 30px;
+}
+.related-comics h4{
+ font-weight: bold;
+}
+.btn-marvel{
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  background-color: #EC1D23;
+  color: #ffffff;
+  text-transform: uppercase;
+  border: none;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 8px 8px 8px 8px;
+  margin-top: 10px;
+}
+
+.btn-marvel:hover{
+  background-color: #CB1711;
+}
+.comic-title{
+  padding: 10px 30px 0px 0px;
+}
+.a-marvel{
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  color: #565656;
+  display: block;
+}
+.a-marvel img{
+  display: none;
+  padding: 0 10px 0 0;
+}
+
+.link-icon{
+  margin-right: 10px;
+  display: inline;
+}
+
+/*.a-marvel:hover{
+  text-decoration: none;
+  color: #FF002A;
+  margin-top: -5px;
+  display: inline-block;
+}*/
+/*.a-marvel:visited{
+  text-decoration: none;
+  color: #CB1711;
+}*/
+/*.a-marvel:hover img{
+  display: inline;
+  text-decoration: none;
+  color: #FF002A;
+}*/
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+  display: block;
+}
+
+li>a:hover {
+  background: url('../images/export/icons/link-arrow.png') no-repeat left top;
+  padding: 0px 0px 0px 30px;
+  list-style: none;
+  margin-top: 0;
+  text-decoration: none;
+  color: #FF002A;
 }
