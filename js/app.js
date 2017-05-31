@@ -9,7 +9,7 @@
 	 function($routeProvider, $locationProvider){
 	  $routeProvider
 			.when('/', {
-				templateUrl : 'views/view-home.html',
+				templateUrl : 'views/view-characters.html',
 				controller : 'mainController'
 			})
 			.otherwise({

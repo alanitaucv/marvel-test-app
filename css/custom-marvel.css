@@ -36,9 +36,13 @@ input:focus, select:focus{
 }
 
 select.input-lg {
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9em;
   font-weight: bold;
   border-radius: 0px;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  padding: 0 0 0 10px ;
 }
 
 select + i {
@@ -149,7 +153,10 @@ footer img{
   background-color: #CB1711;
 }
 .comic-title{
-  padding: 10px 30px 0px 0px;
+  padding: 0px 30px 0px 0px;
+}
+.comic-title ul{
+  padding-top: 10px;
 }
 .a-marvel{
   font-family: 'Poppins', sans-serif;
@@ -173,10 +180,9 @@ footer img{
   margin-top: -5px;
   display: inline-block;
 }*/
-/*.a-marvel:visited{
-  text-decoration: none;
+a:visited{
   color: #CB1711;
-}*/
+}
 /*.a-marvel:hover img{
   display: inline;
   text-decoration: none;
@@ -198,3 +204,69 @@ li>a:hover {
   text-decoration: none;
   color: #FF002A;
 }
+
+/*Column favorites comics*/
+.comic-container{
+  text-align: center;
+  position:relative;
+    display:inline-block;
+}
+.comic-cover{
+  margin-top: 20px;
+  width: 100%;
+}
+
+.comic-fav-title{
+  padding: 0;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Shine */
+.shine figure {
+	position: relative;
+}
+.shine figure::before {
+	position: absolute;
+	top: 0;
+	left: -75%;
+	z-index: 2;
+	display: block;
+	content: '';
+	width: 50%;
+	height: 100%;
+	background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+	background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+	-webkit-transform: skewX(-25deg);
+	transform: skewX(-25deg);
+}
+.shine figure:hover::before {
+	-webkit-animation: shine .75s;
+	animation: shine .75s;
+}
+@-webkit-keyframes shine {
+	100% {
+		left: 125%;
+	}
+}
+@keyframes shine {
+	100% {
+		left: 125%;
+	}
+}
+
+.delete-comic{
+  background-image: url('../images/export/icons/btn-delete.png');
+  background-color: transparent;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  position:absolute;
+  top:-3px;
+  right: 35px;
+  z-index: 1;
+}
+
+
+/**/

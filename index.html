@@ -47,12 +47,10 @@
         <!-- Use any element to open the sidenav -->
         <div class="row">
           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 main">
-            <ng-include src="'./views/view-home.html'"></ng-include>
+            <ng-include src="'./views/view-characters.html'"></ng-include>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 favorites">
-            <h1>
-              Esto es una columna
-            </h1>
+            <ng-include src="'./views/view-favorite-comics.html'"></ng-include>
           </div>
         </div>
       </div>
@@ -73,7 +71,5 @@
 
     <!-- App Scripts -->
     <script src="./js/app.js" charset="utf-8"></script>
-    <!-- <script src="./js/shared/menu.js"></script> -->
-
   </body>
 </html>
