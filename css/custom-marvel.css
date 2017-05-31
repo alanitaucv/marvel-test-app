@@ -372,6 +372,7 @@ body.modal-open .main-content{
   font-family: 'Poppins', sans-serif;
   padding: 0px 10px 10px 0;
   margin-right: -5px;
+  font-size: 12px;
 }
 .comic-cover-modal{
   margin-right: -5px;
@@ -380,3 +381,112 @@ body.modal-open .main-content{
   align-items: center;
   text-align: center;
 }
+.img-cover{
+  width: 236px;
+  height: 314px;
+}
+
+/* ANIMACIONES*/
+/* slide in from the right */
+@-webkit-keyframes slideInRight {
+    from    { transform: translateX(100%);  }
+    to      { transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+    from    { transform: translateX(100%);  }
+    to      { transform: translateX(0); }
+}
+@keyframes slideInRight {
+    from    { transform: translateX(100%);  }
+    to      { transform: translateX(0); }
+}
+
+/* slide in from the bottom */
+@-webkit-keyframes slideOutLeft { to { transform: translateX(-100%); }}
+@-moz-keyframes slideOutLeft { to { transform: translateX(-100%); }}
+@keyframes slideOutLeft { to { transform: translateX(-100%); }}
+
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+ opacity:0;  /* make things invisible upon start */
+ -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+ -moz-animation:fadeIn ease-in 1;
+ animation:fadeIn ease-in 1;
+
+ -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+ -moz-animation-fill-mode:forwards;
+ animation-fill-mode:forwards;
+
+ -webkit-animation-duration:1s;
+ -moz-animation-duration:1s;
+ animation-duration:1s;
+}
+
+.fade-in.one {
+-webkit-animation-delay: 0.4s;
+-moz-animation-delay: 0.4s;
+animation-delay: 0.4s;
+}
+
+.fade-in.two {
+-webkit-animation-delay: 0.8s;
+-moz-animation-delay:0.8s;
+animation-delay: 0.8s;
+}
+
+.fade-in.three {
+-webkit-animation-delay: 1.2s;
+-moz-animation-delay: 1.2s;
+animation-delay: 1.2s;
+}
+
+.fade-in.four {
+-webkit-animation-delay: 1.6s;
+-moz-animation-delay: 1.6s;
+animation-delay: 1.6s;
+}
+
+.fade-in.five {
+-webkit-animation-delay: 2.0s;
+-moz-animation-delay: 2.0s;
+animation-delay: 2.0s;
+}
+
+.fade-in.six {
+-webkit-animation-delay: 2.4s;
+-moz-animation-delay: 2.4s;
+animation-delay: 2.4s;
+}
+
+.fade-in.seven {
+-webkit-animation-delay: 2.8s;
+-moz-animation-delay:2.8s;
+animation-delay: 2.8s;
+}
+
+.fade-in.eight {
+-webkit-animation-delay: 2.2s;
+-moz-animation-delay: 2.2s;
+animation-delay: 2.2s;
+}
+
+.fade-in.nine {
+-webkit-animation-delay: 2.6s;
+-moz-animation-delay: 2.6s;
+animation-delay: 2.6s;
+}
+
+.fade-in.ten {
+-webkit-animation-delay: 3.0s;
+-moz-animation-delay: 3.0s;
+animation-delay: 3.0s;
+}
+
+
+.ng-enter  { animation: slideInRight 1.0s both ease-in; z-index: 8888; }
+.ng-leave  { animation: slideOutLeft 0.7s both ease-in; z-index: 9999; }
+
+/*FIN ANIMACIONES*/

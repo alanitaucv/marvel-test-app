@@ -2,7 +2,7 @@
 
   'use strict';
 
-	var app = angular.module('app', ['ngSanitize', 'ngRoute']);
+	var app = angular.module('app', ['ngSanitize', 'ngRoute', 'ngAnimate']);
 
 
 	app.config (['$routeProvider', '$locationProvider',
