@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row main-content">
   <div class="row marvel-header">
     <div class="col-lg-4">
       <h3 class="subtitle">
@@ -9,10 +9,10 @@
     <div class="col-lg-offset-4 col-lg-4 order">
       <select class="form-control input-lg">
         <option value="">Sort by</option>
-        <option value="">Selecciona un campo</option>
-        <option value="">Selecciona un campo</option>
-        <option value="">Selecciona un campo</option>
-        <option value="">Selecciona un campo</option>
+        <option value="">Name</option>
+        <option value="">Modified</option>
+        <option value="">-Name</option>
+        <option value="">-Modified</option>
       </select>
       <i class="fa fa-chevron-down"></i>
     </div>
@@ -43,14 +43,14 @@
            <div class="col-lg-6 col-md-6 col-sm-12">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" href="#">Spider-Man/Deadpool #11</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spider-Man/Deadpool #11</a>
                </li>
              </ul>
            </div>
            <div class="col-lg-6 col-md-6 col-sm-12">
               <ul class="comic-rel">
                 <li class="comic-rel">
-                  <a class="a-marvel" href="#">The Clone Conspiracy #2</a>
+                  <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">The Clone Conspiracy #2</a>
                 </li>
               </ul>
            </div>
@@ -59,18 +59,20 @@
            <div class="col-lg-6 col-md-6 col-sm-12">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" href="#">Spidy #12</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spidy #12</a>
                </li>
              </ul>
            </div>
            <div class="col-lg-6 col-md-6 col-sm-12">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" href="#">Avengers #1</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Avengers #1</a>
                </li>
              </ul>
            </div>
          </div>
+
+
         </div>
       </div> <!-- End character description -->
     </div> <!-- End character container -->
@@ -98,14 +100,14 @@
            <div class="col-lg-6 col-md-6 col-sm-12">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" href="#">Spider-Man/Deadpool #11</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spider-Man/Deadpool #11</a>
                </li>
              </ul>
            </div>
            <div class="col-lg-6 col-md-6 col-sm-12">
               <ul class="comic-rel">
                 <li class="comic-rel">
-                  <a class="a-marvel" href="#">The Clone Conspiracy #2</a>
+                  <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">The Clone Conspiracy #2</a>
                 </li>
               </ul>
            </div>
@@ -114,14 +116,14 @@
            <div class="col-lg-6 col-md-6 col-sm-12">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" href="#">Spidy #12</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spidy #12</a>
                </li>
              </ul>
            </div>
            <div class="col-lg-6 col-md-6 col-sm-12">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" href="#">Avengers #1</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Avengers #1</a>
                </li>
              </ul>
            </div>
@@ -138,9 +140,48 @@
         <li><a class="num" href="#">3</a></li>
         <li><a class="num" href="#">4</a></li>
         <li><a class="num" href="#">5</a></li>
+        <li><a class="num" href="#">...</a></li>
         <li class="right"><a class="num" href="#"><img class="img-responsive" src="../images/export/icons/btn_arrow_right.png" width="20px" height="20px" alt=""></a></li>
      </ul>
     </div>
   </div>
+<!-- </div> -->
 
-</div>
+<!-- Modal -->
+<div class="modal fade" id="myModalMarvel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <span aria-hidden="true">&times;</span> -->
+        <button type="button" class="close" data-dismiss="modal" ><img src="../images/export/icons/btn-close.png" alt=""></button>
+        <!-- <h4 class="modal-title">Modal title</h4> -->
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <div class="col-lg-5 col-md-5 col-sm-12 center-cover">
+            <img class="img-responsive comic-cover-modal" src="http://cdn1.sciencefiction.com/wp-content/uploads/2012/04/300px-Avengers_Vol_3_1.jpg" alt="">
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-12">
+            <h3 class="modal-comic-title">all the new, all diferent avengers (2015) #1.1</h3>
+            <div class="texto">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-lg-6 col-md-6 col-sm-6 add-fav">
+          <img src="./images/export/icons/btn-favourites-default.png" alt="" ng-show="true">
+          <img src="./images/export/icons/btn-favourites-primary.png" alt="" ng-show="false">
+          add favourites
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 add-car">
+          <img src="./images/export/icons/shopping-cart-primary.png" alt="">
+          buy for $3.99
+        </div>      
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

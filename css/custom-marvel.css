@@ -317,3 +317,66 @@ li.active>a{
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
+
+/*.related-comics{
+  overflow-y: scroll;
+}*/
+
+#myModalMarvel{
+  border-radius: 0px !important;
+}
+
+.add-fav, .add-car, .added-fav{
+  padding: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.add-fav{
+  color: #322827;
+  background-color: #F0F0F0;
+  transition: 0.3s;
+}
+.add-fav:hover, .add-car:hover{
+  font-weight: 900;
+  cursor: pointer;
+}
+.added-fav{
+  color: #FF002A;
+  background-color: #322827;
+}
+.add-car{
+  color: #FF002A;
+  background-color: #DCDCDC;
+}
+
+body.modal-open .main-content{
+    -webkit-filter: blur(8px) !important;
+    -moz-filter: blur(8px) !important;
+    -o-filter: blur(8px) !important;
+    -ms-filter: blur(8px) !important;
+    filter: blur(8px) !important;
+}
+
+.modal-comic-title{
+  /*font-stretch:extra-condensed;*/
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 900;
+  padding-right:30px;
+  color: #322827;
+}
+.texto{
+  font-family: 'Poppins', sans-serif;
+  padding: 0px 10px 10px 0;
+  margin-right: -5px;
+}
+.comic-cover-modal{
+  margin-right: -5px;
+}
+.center-cover{
+  align-items: center;
+  text-align: center;
+}
