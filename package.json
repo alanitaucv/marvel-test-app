@@ -21,11 +21,12 @@
   },
   "homepage": "https://github.com/alanitaucv/marvel-test-app#readme",
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
     "angular-route": "^1.5.8",
-    "angular-sanitize": "^1.5.8"
+    "angular-sanitize": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "crypto-js": "^3.1.9-1",
+    "jquery": "^3.2.1"
   }
 }
