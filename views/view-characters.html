@@ -7,32 +7,35 @@
       </h3>
     </div>
     <div class="col-lg-offset-4 col-lg-4 order">
-      <select class="form-control input-lg">
+      <select class="form-control input-lg" ng-model="orderFilter" ng-change="mc.loadCharacters(0,orderFilter,'')">
         <option value="">Sort by</option>
-        <option value="">Name</option>
-        <option value="">Modified</option>
-        <option value="">-Name</option>
-        <option value="">-Modified</option>
+        <option value="name">Name</option>
+        <option value="modified">Modified</option>
+        <option value="-name">-Name</option>
+        <option value="-modified">-Modified</option>
       </select>
       <i class="fa fa-chevron-down"></i>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-12 character-container fade-in one">
+    <div class="col-lg-6 col-md-6 col-sm-12 character-container fade-in {{classCSS[$index]}}" ng-repeat="character in model.characters">
       <div class="character-description ">
         <div class="row description">
-          <div class="col-lg-5 col-md-5 col-sm-12">
-           <img class="character-profile" src="http://static-4.app4smart.me/i/icon/240/u16/mi5/ua2/spider-man-unlimited.png" alt="">
+          <div class="col-lg-5 col-md-12 col-sm-12" style="text-align: center;" >
+           <img class="character-profile" ng-src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}" alt="">
           </div>
           <div class="col-lg-7 col-md-5 col-sm-12">
             <div class="character-name">
-              <p>SPIDER-MAN</p>
+              <p>{{character.name}}</p>
             </div>
             <div class="description-text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.
+              <div class="texto-desc">
+                <p ng-show="character.description.length>0">{{character.description}}</p>
+                <p ng-show="character.description.length==0" style="text-align: center; color: #666666; font-weight:bold;">CHARACTER WITHOUT DESCRIPTION REGISTERED</br></p>
+              </div>
               <div class="">
-                <button class="btn-marvel" type="button" name="button">view more</button>
+                <button class="btn-marvel hvr-float-shadow" type="button" name="button">view more</button>
               </div>
             </div>
           </div>
@@ -40,110 +43,20 @@
         <div class="row related-comics">
          <h4>Related comics</h4>
          <div class="row comic-title">
-           <div class="col-lg-6 col-md-6 col-sm-12">
+           <p style="padding: 15px; color: #9C9C9C; font-weight: bold;" ng-show='character.comics.available==0'> NOT FOUND RELATED COMICS </p>
+           <div class="col-lg-6 col-md-6 col-sm-12" ng-repeat="comic in character.comics.items | limitTo:4">
              <ul class="comic-rel">
                <li class="comic-rel">
-                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spider-Man/Deadpool #11</a>
-               </li>
-             </ul>
-           </div>
-           <div class="col-lg-6 col-md-6 col-sm-12">
-              <ul class="comic-rel">
-                <li class="comic-rel">
-                  <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">The Clone Conspiracy #2</a>
-                </li>
-              </ul>
-           </div>
-         </div>
-         <div class="row comic-title">
-           <div class="col-lg-6 col-md-6 col-sm-12">
-             <ul class="comic-rel">
-               <li class="comic-rel">
-                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spidy #12</a>
-               </li>
-             </ul>
-           </div>
-           <div class="col-lg-6 col-md-6 col-sm-12">
-             <ul class="comic-rel">
-               <li class="comic-rel">
-                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Avengers #1</a>
+                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel" ng-click="mc.loadComic(comic.resourceURI)">{{comic.name}}</a>
                </li>
              </ul>
            </div>
          </div>
-
-
         </div>
       </div> <!-- End character description -->
     </div> <!-- End character container -->
-    <div class="col-lg-6 col-md-6 col-sm-12 character-container  fade-in two">
-      <div class="character-description">
-        <div class="row description">
-          <div class="col-lg-5 col-md-5 col-sm-12">
-           <img class="character-profile" src="https://static.comicvine.com/uploads/square_small/1/14487/5775570-blackwidow.jpg" alt="">
-          </div>
-          <div class="col-lg-7 col-md-5 col-sm-12">
-            <div class="character-name">
-              <p>Black widow</p>
-            </div>
-            <div class="description-text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.
-              <div class="">
-                <button class="btn-marvel" type="button" name="button">view more</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row related-comics">
-         <h4>Related comics</h4>
-         <div class="row comic-title">
-           <div class="col-lg-6 col-md-6 col-sm-12">
-             <ul class="comic-rel">
-               <li class="comic-rel">
-                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spider-Man/Deadpool #11</a>
-               </li>
-             </ul>
-           </div>
-           <div class="col-lg-6 col-md-6 col-sm-12">
-              <ul class="comic-rel">
-                <li class="comic-rel">
-                  <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">The Clone Conspiracy #2</a>
-                </li>
-              </ul>
-           </div>
-         </div>
-         <div class="row comic-title">
-           <div class="col-lg-6 col-md-6 col-sm-12">
-             <ul class="comic-rel">
-               <li class="comic-rel">
-                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Spidy #12</a>
-               </li>
-             </ul>
-           </div>
-           <div class="col-lg-6 col-md-6 col-sm-12">
-             <ul class="comic-rel">
-               <li class="comic-rel">
-                 <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel">Avengers #1</a>
-               </li>
-             </ul>
-           </div>
-         </div>
-        </div>
-      </div>   <!-- End character description -->
-    </div> <!-- End character container -->
     </div>
-    <div id="pagination" class="row pages" >
-      <ul class="pagination">
-        <li class="left"><a class="num" href="#"><img class="img-responsive" src="../images/export/icons/btn_arrow_left.png" width="20px" height="20px" alt=""></a></li>
-        <li class="active"><a class="num" href="#">1</a></li>
-        <li><a class="num" href="#">2</a></li>
-        <li><a class="num" href="#">3</a></li>
-        <li><a class="num" href="#">4</a></li>
-        <li><a class="num" href="#">5</a></li>
-        <li><a class="num" href="#">...</a></li>
-        <li class="right"><a class="num" href="#"><img class="img-responsive" src="../images/export/icons/btn_arrow_right.png" width="20px" height="20px" alt=""></a></li>
-     </ul>
-    </div>
+
   </div>
 <!-- </div> -->
 
@@ -152,23 +65,23 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- <span aria-hidden="true">&times;</span> -->
         <button type="button" class="close" data-dismiss="modal" ><img src="../images/export/icons/btn-close.png" alt=""></button>
-        <!-- <h4 class="modal-title">Modal title</h4> -->
       </div>
       <div class="modal-body">
         <div class="row">
-
           <div class="col-lg-5 col-md-5 col-sm-12 center-cover">
-            <img class="img-responsive img-cover" src="http://cdn1.sciencefiction.com/wp-content/uploads/2012/04/300px-Avengers_Vol_3_1.jpg" alt="">
-          </div>
-          <div class="col-lg-7 col-md-7 col-sm-12">
-            <h3 class="modal-comic-title">all the new, all diferent avengers (2015) #1.1</h3>
-            <div class="texto">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.
+            <div class="hvr-float-shadow">
+              <figure>
+                <img class="img-responsive img-cover" src="{{comicDescription.image}}" alt="">
+              </figure>
             </div>
           </div>
-
+          <div class="col-lg-7 col-md-7 col-sm-12">
+            <h3 class="modal-comic-title">{{comicDescription.title}}</h3>
+            <div class="texto">
+              <p ng-bind-html="comicDescription.description"></p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -178,8 +91,10 @@
           add favourites
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 add-car">
-          <img src="./images/export/icons/shopping-cart-primary.png" alt="">
-          buy for $3.99
+          <a href="{{comicDescription.carLink}}" target="_blank">
+            <img src="./images/export/icons/shopping-cart-primary.png" alt="">
+            buy for ${{comicDescription.price}}
+          </a>
         </div>
       </div>
     </div><!-- /.modal-content -->

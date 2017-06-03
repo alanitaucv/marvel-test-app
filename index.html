@@ -48,6 +48,16 @@
         <div class="row">
           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 main">
             <ng-include src="'./views/view-characters.html'"></ng-include>
+
+            <div id="pagination" class="row pages" >
+              <ul id="paginacion" class="pagination-controle pagination">
+                <li class="left"><a class="num" ng-click="mc.removeOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_left.png" width="20px" height="20px" alt=""></a></li>
+                <li ng-repeat="page in pagination | limitTo : 5 : pageOffset" ng-click="select(page)" ng-class="{active: isActive(page)}"><a class="num" ng-click="mc.loadCharacters(page-1,orderFilter,'')">{{page}}</a></li>
+                <li ng-if='pagination.length>pagination[5+pageOffset]'><a class="num">...</a></li>
+                <li class="right" ><a class="num" ng-click="mc.addOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_right.png" width="20px" height="20px" alt=""></a></li>
+             </ul>
+
+            </div>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 favorites main-content">
             <ng-include src="'./views/view-favorite-comics.html'"></ng-include>
@@ -72,5 +82,12 @@
 
     <!-- App Scripts -->
     <script src="./js/app.js" charset="utf-8"></script>
+    <!-- <script type="text/javascript">
+      $('#paginacion li').on('click', function(){
+        alert('hola');
+        $('#paginacion li.active').removeClass('active');
+        $(this).addClass(' active');
+      });
+    </script> -->
   </body>
 </html>
