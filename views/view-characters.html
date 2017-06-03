@@ -7,7 +7,7 @@
       </h3>
     </div>
     <div class="col-lg-offset-4 col-lg-4 order">
-      <select class="form-control input-lg" ng-model="orderFilter" ng-change="mc.loadCharacters(0,orderFilter,'')">
+      <select class="form-control input-lg" ng-model="orderFilter" ng-change="mc.loadCharacters(0,orderFilter,searchName)">
         <option value="">Sort by</option>
         <option value="name">Name</option>
         <option value="modified">Modified</option>
@@ -19,6 +19,9 @@
   </div>
 
   <div class="row">
+    <div class="not-found" ng-show="notFound">
+      <ng-include src="'./views/view-not-character-found.html'"></ng-include>
+    </div>
     <div class="col-lg-6 col-md-6 col-sm-12 character-container fade-in {{classCSS[$index]}}" ng-repeat="character in model.characters">
       <div class="character-description ">
         <div class="row description">

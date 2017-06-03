@@ -170,6 +170,7 @@ footer img{
 
 .btn-marvel:hover{
   background-color: #CB1711;
+  transition: 0.3s;
 }
 .comic-title{
   padding: 0px 30px 0px 0px;
