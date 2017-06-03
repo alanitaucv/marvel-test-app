@@ -2,19 +2,19 @@
   <img src="./images/export/icons/favourites.png" alt="">
   My favourites
 </h3>
-<div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 comic-container ">
+<div class="row" >
+  <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 comic-container" ng-repeat="comic in comicsFavs track by comic.id">
     <div class="comic-cover shine">
       <figure class="cover">
-        <img class="img-responsive img-cover " src="http://cdn1.sciencefiction.com/wp-content/uploads/2012/04/300px-Avengers_Vol_3_1.jpg" alt="">
+        <img class="img-responsive img-cover " ng-src="{{comic.image}}" alt="">
         <div class="col-lg-offset-1 col-lg-9" style="text-align: center; padding-top:5px; font-weight:bold; line-height: 15px;">
-          Captain America album issue
+          {{comic.title}}
         </div>
       </figure>
-      <button class="btn-marvel delete-comic" type="button" name="button"></button>
+      <button class="btn-marvel delete-comic top-right" type="button" name="button" ng-click="mc.deleteComic(comic)"></button>
     </div>
   </div>
-  <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 comic-container">
+  <!-- <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6 comic-container">
     <div class="comic-cover shine">
       <figure class="cover">
         <img class="img-responsive img-cover" src="https://s-media-cache-ak0.pinimg.com/236x/aa/88/5b/aa885b4928cef84d5d928d7be0199256.jpg" alt="">
@@ -22,8 +22,8 @@
           Comic Tile mauris non tempor, cuam et lasina
         </div>
       </figure>
-      <button class="btn-marvel delete-comic" type="button" name="button"></button>
+      <button class="btn-marvel delete-comic top-right" type="button" name="button"></button>
     </div>
-  </div>
+  </div> -->
 
 </div>

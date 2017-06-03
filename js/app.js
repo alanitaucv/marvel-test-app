@@ -41,11 +41,20 @@
       }
     });
 
-	app.controller('mainController', ['$scope', '$http', '$rootScope','$filter', function($scope, $http, $rootScope, $filter){
+	app.controller('mainController', ['$scope', '$http', '$rootScope','$filter',  function($scope, $http, $rootScope, $filter){
     $scope.classCSS=['one','two','three','four','five','six','seven','eight','nine','ten'];
     $scope.searchName='';
-  //  $scope.searchparam='';
+    $scope.classFav='add-fav';
+    $scope.ed='';
+    $scope.comicsFavs = new Array();
+
+    if (localStorage.getItem('comicsFavoritos')!=undefined && localStorage.getItem('comicsFavoritos')!=null){
+      $scope.comicsFavs=JSON.parse(localStorage.getItem('comicsFavoritos'));
+      console.log("En localStorage: "+angular.toJson($scope.comicsFavs));
+    }
+
     $scope.pagination=[];
+
     $scope.model={
       'characters' : []
     };
@@ -86,8 +95,9 @@
           url +='&events='+name;
       if (name!='' && name!=undefined && $scope.search.param=='stories')
           url +='&stories='+name;
+
       $scope.searchName=name;
-      console.log ($scope.search.param + " name "+name);
+
 
       var hash = CryptoJS.MD5(ts + $rootScope.apiKeyP + $rootScope.apiKey, 'hex');
       url +='&apikey='+$rootScope.apiKey+"&ts="+ts+"&hash="+hash;
@@ -105,9 +115,7 @@
             $scope.notFound=true;
             $scope.search={'param':'nameStartsWith'};
           }
-          console.log(charactersTotal);
           //Me aseguro que cree el arreglo la 1ra vez y las siguientes veces evalua si hay cambio en la cantidad de
-          console.log($scope.pagination.length);
           if ($scope.pagination==undefined || $scope.pagination.length!=charactersTotal)
             $scope.pagination=Array.from(new Array(Math.ceil(charactersTotal/$rootScope.limit)),(val,index)=>index+1);
 
@@ -123,15 +131,17 @@
     if ($scope.pagination!=undefined)
       $scope.currentPage=$scope.pagination[0];
     $scope.pageOffset=0;
-    $scope.comicDescription ={};
 
     this.loadComic = function(comicPath){
+      $scope.comicDescription ={};
+      $scope.classFav='add-fav';
       $scope.comicDescription.title ='';
       $scope.comicDescription.id ='';
       $scope.comicDescription.description = '';
       $scope.comicDescription.image ='';
       $scope.comicDescription.carLink='';
       $scope.comicDescription.price='';
+      $scope.ed='';
 
       var ts = new Date().getTime();
       var url = $rootScope.url + 'comics/'+comicPath.split('/').slice(-1)[0];
@@ -164,9 +174,59 @@
           }
 
           console.log("Comic: "+ angular.toJson($scope.comicDescription));
+          console.log("indice" + $scope.isComicAddedFav($scope.comicDescription));
+          if ($scope.isComicAddedFav($scope.comicDescription)!=-1){
+            $scope.classFav="added-fav";
+            $scope.ed = "ed";
+          }
+
       },function (data, status, error){
           console.log("Error consumiendo el servicio");
       });
+    };
+
+
+    //to localStorage
+    this.addComic = function(comic){
+
+      if ($scope.comicsFavs.length<3 && $scope.isComicAddedFav(comic)==-1){
+          $scope.comicsFavs.push(comic);
+          $scope.classFav="added-fav";
+          $scope.ed = "ed";
+          if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("comicsFavoritos", JSON.stringify($scope.comicsFavs));
+          } else {
+            console.log("This browser doesn't support localStorage");
+          }
+      }else if ($scope.comicsFavs.length==3){
+        console.log('localStorage full');
+      }
+
+      console.log($scope.comicsFavs);
+    }
+
+    $scope.isComicAddedFav = function(comic){
+        for(var c=0; c<$scope.comicsFavs.length;++c){
+          if ((comic!=null && comic!=undefined && comic!="") && $scope.comicsFavs[c].id == comic.id){
+            $scope.classFav="added-fav";
+            $scope.ed = "ed";
+            return c;
+          }
+        }
+      $scope.classFav="add-fav";
+      $scope.ed = "";
+      return -1;
+    }
+
+    // from localStorage
+    this.deleteComic = function(comic){
+      $scope.comicsFavs.splice($scope.comicsFavs.indexOf(comic),1);
+      console.log("eliminar: "+angular.toJson($scope.comicsFavs));
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("comicsFavoritos", JSON.stringify($scope.comicsFavs));
+      } else {
+        console.log("This browser doesn't support localStorage");
+      }
     };
 
     // pagination

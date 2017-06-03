@@ -88,10 +88,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="col-lg-6 col-md-6 col-sm-6 add-fav">
-          <img src="./images/export/icons/btn-favourites-default.png" alt="" ng-show="true">
-          <img src="./images/export/icons/btn-favourites-primary.png" alt="" ng-show="false">
-          add favourites
+        <div class="col-lg-6 col-md-6 col-sm-6 {{classFav}}" ng-click="mc.addComic(comicDescription)">
+          <img src="./images/export/icons/btn-favourites-default.png" alt="" ng-show="isComicAddedFav(comicDescription)==-1" >
+          <img src="./images/export/icons/btn-favourites-primary.png" alt="" ng-show="isComicAddedFav(comicDescription)!=-1" >
+          add{{ed}} favourites
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 add-car">
           <a href="{{comicDescription.carLink}}" target="_blank">

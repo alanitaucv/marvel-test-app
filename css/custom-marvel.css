@@ -250,6 +250,8 @@ li.comic-rel>a:hover {
 }
 .cover{
     padding-left: 35px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .comic-fav-title{
@@ -300,11 +302,22 @@ li.comic-rel>a:hover {
   width: 35px;
   height: 35px;
   position:absolute;
-  top:-3px;
-  right: 35px;
+  /*top:-3px;
+  right: 35px;*/
   z-index: 1;
 }
 
+.top-right{
+  top: 0;
+  /*right: 17px;*/
+  left: 82%;
+  margin-top: 0px;
+  flex: 100%;
+}
+
+.marvel-papelera{
+  margin-top:-100%;
+}
 
 /**/
 .pages{
