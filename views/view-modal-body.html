@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-lg-5 col-md-5 col-sm-12 center-cover">
+    <div class="hvr-float-shadow">
+      <figure>
+        <img class="img-responsive img-cover" src="{{comicDescription.image}}" alt="">
+      </figure>
+    </div>
+  </div>
+  <div class="col-lg-7 col-md-7 col-sm-12">
+    <h3 class="modal-comic-title">{{comicDescription.title}}</h3>
+    <div class="texto">
+      <p ng-bind-html="comicDescription.description"></p>
+    </div>
+    <div ng-bind-html="alert">
+		</div>
+  </div>
+</div>

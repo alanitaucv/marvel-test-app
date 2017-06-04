@@ -1,9 +1,15 @@
 body{
   background-color: #F4F4F4;
+  overflow-x: hidden;
 }
 .navbar-brand{
   margin-top: -5px;
   padding-left: 40px;
+}
+.alert-marvel{
+  background-color: #322827;
+  color: #EC1D23;
+  border-color: #EC1D23;
 }
 
 .navbar-center{
@@ -145,6 +151,9 @@ footer img{
   max-height: 120px;
   overflow-y: hidden;
 }
+.show-text{
+  min-height: 120px;
+}
 .related-comics{
   position: relative;
   bottom: 0;
@@ -172,6 +181,9 @@ footer img{
   background-color: #CB1711;
   transition: 0.3s;
 }
+.btn-marvel:focus{
+  outline: none;
+}
 .comic-title{
   padding: 0px 30px 0px 0px;
 }
@@ -183,8 +195,6 @@ footer img{
   text-decoration: none;
   color: #565656;
   display: block;
-  /*margin-bottom: 20px !important;
-  padding-bottom: 20px;*/
 }
 .a-marvel img{
   display: none;
@@ -195,21 +205,6 @@ footer img{
   margin-right: 10px;
   display: inline;
 }
-
-/*.a-marvel:hover{
-  text-decoration: none;
-  color: #FF002A;
-  margin-top: -5px;
-  display: inline-block;
-}*/
-/*a:visited{
-  color: #CB1711;
-}*/
-/*.a-marvel:hover img{
-  display: inline;
-  text-decoration: none;
-  color: #FF002A;
-}*/
 
 ul.comic-rel{
   list-style-type: none;
@@ -242,16 +237,19 @@ li.comic-rel>a:hover {
 
 .comic-cover{
   margin-top: 20px;
-  /*width: 100%;*/
   text-align: center;
+}
+.comic-cover>figure{
+  text-align: center;
+  align-content: center;
 }
 .comic-cover p{
   padding-left: 0px;
 }
 .cover{
-    padding-left: 35px;
     display: flex;
     flex-wrap: wrap;
+
 }
 
 .comic-fav-title{
@@ -302,15 +300,13 @@ li.comic-rel>a:hover {
   width: 35px;
   height: 35px;
   position:absolute;
-  /*top:-3px;
-  right: 35px;*/
   z-index: 1;
 }
 
 .top-right{
   top: 0;
   /*right: 17px;*/
-  left: 82%;
+  left: 80%;
   margin-top: 0px;
   flex: 100%;
 }
@@ -326,11 +322,6 @@ li.comic-rel>a:hover {
 .pages>ul>li{
   cursor: pointer;
 }
-/*#pagination{
-  margin: auto;
-  align-self: center;
-  border-radius: 0px !important;
-}*/
 .num{
   border-radius: 0px !important;
   margin: 5px;
@@ -342,14 +333,6 @@ a.num{
   -moz-box-shadow: -1px 10px 15px -7px rgba(153,153,153,1);
   box-shadow: -1px 10px 15px -7px rgba(153,153,153,1);
 }
-/*a.num:active{
-  color: #565656  !important;
-  border: 1px solid #DCDCDC !important;
-  background-color: transparent !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important;
-}*/
 
 li.active>a{
   color: #565656  !important;
@@ -359,10 +342,6 @@ li.active>a{
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
-
-/*.related-comics{
-  overflow-y: scroll;
-}*/
 
 #myModalMarvel{
   border-radius: 0px !important;
@@ -400,7 +379,10 @@ body.modal-open .main-content{
     -ms-filter: blur(8px) !important;
     filter: blur(8px) !important;
 }
-
+.main-content{
+  height: 100%;
+  bottom: 0;
+}
 .modal-comic-title{
   /*font-stretch:extra-condensed;*/
   font-family: 'Poppins', sans-serif;
@@ -426,6 +408,11 @@ body.modal-open .main-content{
 .img-cover{
   width: 236px;
   height: 314px;
+  margin: 0 auto;
+}
+.centered{
+  float: none;
+    margin: 0 auto;
 }
 
 /* ANIMACIONES*/
@@ -528,8 +515,8 @@ animation-delay: 4.0s;
 }
 
 
-.ng-enter  { animation: slideInRight 1.0s both ease-in; z-index: 8888; }
-.ng-leave  { animation: slideOutLeft 0.7s both ease-in; z-index: 9999; }
+.ng-enter  { animation: slideInRight 0.65s both ease-in; z-index: 8888; }
+.ng-leave  { animation: slideOutLeft 0.35s both ease-in; z-index: 9999; }
 
 /* The starting CSS styles for the enter animation */
 .fade.ng-enter {
@@ -585,37 +572,96 @@ animation-delay: 4.0s;
   /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
 }
 
-/* Curl Top Right */
-.hvr-curl-top-right {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px transparent;
-  position: relative;
+.comic-item{
+  max-height: 250px !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 }
-.hvr-curl-top-right:before {
-  pointer-events: none;
-  position: absolute;
-  content: '';
-  height: 0;
-  width: 0;
-  top: 0;
-  right: 0;
-  background: white;
-  /* IE9 */
-  background: linear-gradient(225deg, white 45%, #aaa 50%, #ccc 56%, white 80%);
-  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: width, height;
-  transition-property: width, height;
-}
-.hvr-curl-top-right:hover:before, .hvr-curl-top-right:focus:before, .hvr-curl-top-right:active:before {
-  width: 25px;
-  height: 25px;
-}
+.contenido{
+  background-color: #F0F0F0;
 
+}
 
 
 /*FIN ANIMACIONES*/
+
+/*SCROLL BAR*/
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(236,29,35,0.8);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(236,29,35,0.4);
+}
+
+.aditional-info{
+  font-weight: bolder;
+}
+.item-amoutn{
+  color: rgb(236,29,35);
+}
+
+.ask-user{
+  padding: 15px;
+  background-color: #ffffff;
+  color: #565656;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+/*RADIO BUTTON PERSONALIZADOS*/
+.radio-item {
+  display: inline-block;
+  position: relative;
+  padding: 0 6px;
+  margin: 10px 0 0;
+}
+
+.radio-item input[type='radio']{
+  display: none;
+}
+
+.radio-item label {
+  color: #666;
+  font-weight: normal;
+}
+
+.radio-item label:before {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 11px;
+  border: 2px solid #CB1711;
+  background-color: transparent;
+}
+.radio-item input[type=radio]:checked + label:after {
+  border-radius: 11px;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  content: " ";
+  display: block;
+  background: #CB1711;
+}
+/*FIN RADIO BUTTON PERSONALIZADOS*/

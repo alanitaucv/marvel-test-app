@@ -1,46 +1,45 @@
 <h4>NOT FOUND MATCHES</h4>
 <div class="ask-user">
   <p>Do you want to search with another parameter?</p>
-  <div class="col-lg-12 input-group">
+  <div class="col-lg-offset-1 col-lg-11 input-group">
      <form role="form">
        <div class="form-group has-feedback row">
-         <div class="col-lg-2 col-md-2 col-sm-6">
-           <label class="radio-inline">
-            <input type="radio"  ng-model="search.param" value="nameStartsWith">
-            Name Starts With
-          </label>
+         <div class="col-lg-2 col-md-2 col-sm-6 radio-item">
+            <input type="radio" id="startW" name="startW"  ng-model="search.param" value="nameStartsWith">
+            <label for="startW">Name Starts With</label>
          </div>
-        <div class="col-lg-2 col-md-2 col-sm-6">
-          <label class="radio-inline">
-            <input type="radio"  ng-model="search.param" value="modifiedSince">
-            Modified Since
-          </label>
+        <div class="col-lg-2 col-md-2 col-sm-6 radio-item">
+            <input type="radio" id="modified" name="modified" ng-model="search.param" value="modifiedSince">
+            <label for="modified" >
+              Modified Since
+            </label>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-6">
-          <label class="radio-inline">
-            <input type="radio"  ng-model="search.param" value="comics">
+        <div class="col-lg-2 col-md-2 col-sm-6 radio-item">
+            <input type="radio" id="comics" name="comics" ng-model="search.param" value="comics">
+            <label for="comics">
             Comics ID's (comma-separated)
           </label>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-6">
-          <label class="radio-inline">
-            <input type="radio"  ng-model="search.param" value="series">
+        <div class="col-lg-2 col-md-2 col-sm-6 radio-item">
+            <input type="radio" id="series" name="series" ng-model="search.param" value="series">
+            <label for="series">
             Series ID's (comma-separated)
           </label>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-6">
-          <label class="radio-inline">
-            <input type="radio"  ng-model="search.param" value="events">
+        <div class="col-lg-2 col-md-2 col-sm-6 radio-item">
+            <input type="radio" id="events" name="events" ng-model="search.param" value="events">
+            <label for="events">
             Events ID's (comma-separated)
           </label>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-6">
-          <label class="radio-inline">
-            <input type="radio"  ng-model="search.param" value="stories">
+        <div class="col-lg-2 col-md-2 col-sm-6 radio-item">
+            <input type="radio" id="stories" name="stories" ng-model="search.param" value="stories">
+            <label for="stories">
             Stories ID's (comma-separated)
           </label>
         </div>
         <br><br>
+        <hr>
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12">
             <input id="search1" type="text" class="form-control" ng-model="search.name" placeholder="Search character" ng-keydown="mc.keydown($event,1)"/>

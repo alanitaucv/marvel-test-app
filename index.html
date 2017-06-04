@@ -36,8 +36,7 @@
                 <form role="form">
                   <div class="form-group has-feedback">
                     <input id="search" type="text" class="form-control" ng-model="searchName" placeholder="Search character" ng-keydown="mc.keydown($event, 0)" ng-click="search.param='name'"/>
-                    <i class="form-control-feedback"><img src="./images/export/icons/search.png" alt="" width="25px" height="25px"></i>
-                    <!-- <small id="emailHelp" class="form-text text-muted">Press enter for search.</small> -->
+                    <i class="form-control-feedback"><img src="./images/export/icons/search.png" alt="" width="25px" height="25px"></i>                
                   </div>
                 </form>
               </div>
@@ -46,7 +45,7 @@
        </nav>
 
         <!-- Use any element to open the sidenav -->
-        <div class="row">
+        <div class="row contenido">
           <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 main">
             <ng-include src="'./views/view-characters.html'"></ng-include>
 
@@ -83,12 +82,8 @@
 
     <!-- App Scripts -->
     <script src="./js/app.js" charset="utf-8"></script>
-    <!-- <script type="text/javascript">
-      $('#paginacion li').on('click', function(){
-        alert('hola');
-        $('#paginacion li.active').removeClass('active');
-        $(this).addClass(' active');
-      });
-    </script> -->
+    <script type="text/javascript">
+
+    </script>
   </body>
 </html>

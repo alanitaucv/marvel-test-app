@@ -1,0 +1,38 @@
+<div class="row description">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-5 col-md-12 col-sm-12" style="text-align: center;" >
+      <img class="character-profile" ng-src="{{characterInfo.thumbnail.path}}.{{characterInfo.thumbnail.extension}}" alt="">
+      <hr>
+      <p class="aditional-info">Character ID <br/> <span class="item-amoutn">{{characterInfo.id}}</span></p>
+      <p class="aditional-info">Modified <br/> <span class="item-amoutn">{{characterInfo.modified | date: short : timezone}}</span></p>
+      <p class="aditional-info">Related Stories<br/> <span class="item-amoutn">{{characterInfo.stories.available}}</span></p>
+      <hr>
+    </div>
+    <div class="col-lg-7 col-md-5 col-sm-12">
+      <div class="character-name">
+        <p style="color:#EC1D23; margin-top: 30px;">{{characterInfo.name}}</p>
+      </div>
+      <div class="description-text">
+        <div class="show-text">
+          <p ng-show="characterInfo.description.length>0" style="text-align: justify;">{{characterInfo.description}}</p>
+          <p ng-show="characterInfo.description.length==0" style="text-align: center; color: #666666; font-weight:bold;">CHARACTER WITHOUT DESCRIPTION REGISTERED</br></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="row related-comics">
+     <h4>Related comics</h4>
+     <div class="row comic-title comic-item">
+       <p style="padding: 15px; color: #9C9C9C; font-weight: bold;" ng-show='characterInfo.comics.available==0'> NOT FOUND RELATED COMICS </p>
+       <div class="col-lg-6 col-md-6 col-sm-12 " ng-repeat="comic in characterInfo.comics.items">
+         <ul class="comic-rel ">
+           <li class="comic-rel">
+             <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel" ng-click="mc.loadComic(comic.resourceURI)">{{comic.name}}</a>
+           </li>
+         </ul>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
