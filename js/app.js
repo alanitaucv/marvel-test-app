@@ -44,63 +44,6 @@
       }
     });
 
-  //Construye el valor hash para la conexion a la api de marvel
-  function buildHash($rootScope){
-    var ts = new Date().getTime();
-    var hash = CryptoJS.MD5(ts + $rootScope.apiKeyP + $rootScope.apiKey, 'hex');
-    return 'apikey='+$rootScope.apiKey+"&ts="+ts+"&hash="+hash;
-  }
-
-  //Construye la url con los parametros segun los valores indicados por el usuario
-  function buildUrl(url, orderBy, name, $scope){
-    if (orderBy!='' && orderBy!=undefined)
-        url +='&orderBy='+orderBy;
-    if (name!='' && name!=undefined && $scope.search.param=='name')
-        url +='&name='+name;
-    if (name!='' && name!=undefined && $scope.search.param=='nameStartsWith')
-        url +='&nameStartsWith='+name;
-    if (name!='' && name!=undefined && $scope.search.param=='modifiedSince')
-        url +='&modifiedSince='+name;
-    if (name!='' && name!=undefined && $scope.search.param=='comics')
-        url +='&comics='+name;
-    if (name!='' && name!=undefined && $scope.search.param=='series')
-        url +='&series='+name;
-    if (name!='' && name!=undefined && $scope.search.param=='events')
-        url +='&events='+name;
-    if (name!='' && name!=undefined && $scope.search.param=='stories')
-        url +='&stories='+name;
-    return url;
-  }
-
-  //Inicializa el modelos de datos correspondiente a los comics
-  function initComicDescription($scope){
-    $scope.alert=''; // feedback para con el usuario
-    $scope.classFav='add-fav';
-    $scope.ed='';
-    $scope.comicDescription ={};
-    $scope.comicDescription.title ='';
-    $scope.comicDescription.id ='';
-    $scope.comicDescription.description = '';
-    $scope.comicDescription.image ='';
-    $scope.comicDescription.carLink='';
-    $scope.comicDescription.price='';
-  }
-
-  //Incializa el scope
-  function init($scope){
-    $scope.classCSS=['one','two','three','four','five','six','seven','eight','nine','ten'];
-    $scope.searchName='';
-    $scope.classFav='add-fav';
-    $scope.ed='';
-    $scope.comicsFavs = new Array();
-    $scope.alert='';
-    $scope.pagination=[];
-    $scope.search={'param':'name','name':''};
-    $scope.model={
-      'characters' : []
-    };
-  }
-
 	app.controller('mainController', ['$scope', '$http', '$rootScope','$filter', "$window",  function($scope, $http, $rootScope, $filter, $window){
 
     init($scope);
@@ -143,37 +86,7 @@
       url = buildUrl(url, orderBy, name, $scope) + '&'+buildHash($rootScope);
 
       //Consume servicio de marvel para obtener los personajes
-      $http({
-         method: 'GET',
-         headers: $rootScope.headers,
-         url: url
-      }).then(function (data, status, success){ //servicio consumido satisfactoriamente
-          console.log('Paso! ');
-
-          //actualiza modelo de datos con los resultados encontrados
-          $scope.model.characters = data.data.data.results;
-          var charactersTotal = data.data.data.total;
-
-          //Evalua si se encontraron resultados
-          if (data.data.data.total==0){
-            $scope.notFound=true;
-            $scope.search={'param':'nameStartsWith'};
-            $scope.pagination=[];
-          }
-          //Si se encontraron resultados entonces crea una paginacion y reorganiza la lista de comics
-          if (!$scope.notFound){
-            //Me aseguro que cree el arreglo la 1ra vez y las siguientes veces evalua si hay cambio en la cantidad de
-            if ($scope.pagination==undefined || $scope.pagination.length!=charactersTotal)
-              $scope.pagination=Array.from(new Array(Math.ceil(charactersTotal/$rootScope.limit)),(val,index)=>index+1);
-
-            //Reorganiza de forma aleatoria la lista de comics asociados al personaje
-            for(var i = 0; i<$scope.model.characters.length; ++i){
-              $scope.model.characters[i].comics.items=$filter('azar')($scope.model.characters[i].comics.items);
-            }
-          }
-      },function (data, status, error){ //Error en consumo de servicio
-          console.log("Error consumiendo el servicio");
-      });
+      getCharacters($rootScope, $scope, $http, url, $filter);
     };
 
     //Set pagina inicial
@@ -190,42 +103,7 @@
       url += '?'+buildHash($rootScope);
 
       //consume el servicio de marvel
-      $http({
-         method: 'GET',
-         headers: $rootScope.headers,
-         url: url
-      }).then(function (data, status, success){ //servicio consumido satisfactoriamente
-          console.log('Paso! ');
-          //Guarda los datos del comic en el scope
-          $scope.comicDescription.title = data.data.data.results[0].title;
-          $scope.comicDescription.id = data.data.data.results[0].id;
-          $scope.comicDescription.description = data.data.data.results[0].description;
-          $scope.comicDescription.image = data.data.data.results[0].thumbnail.path+'.'+data.data.data.results[0].thumbnail.extension;
-
-          //Busca el link de compra del comic
-          for (var j=0; j<data.data.data.results[0].urls.length; ++j){
-            if (data.data.data.results[0].urls[j].type=="purchase"){
-              $scope.comicDescription.carLink=data.data.data.results[0].urls[j].url;
-              break;
-            }
-          }
-          //Busca el precio del comic digital
-          for (var j=0; j<data.data.data.results[0].prices.length; ++j){
-            if (data.data.data.results[0].prices[j].type=="digitalPurchasePrice"){
-              $scope.comicDescription.price=data.data.data.results[0].prices[j].price;
-              break;
-            }
-          }
-
-          //Evalua si el comic cargado esta en la lista de comic favoritos y actualiza la clase css correspodiente
-          if ($scope.isComicAddedFav($scope.comicDescription)!=-1){
-            $scope.classFav="added-fav";
-            $scope.ed = "ed";
-          }
-
-      },function (data, status, error){ //Error en consumo de servicio
-          console.log("Error consumiendo el servicio");
-      });
+      getComic($rootScope, $scope, $http, url);
     };
 
 
@@ -297,4 +175,136 @@
       $scope.characterInfo=character;
     }
 	}]);
+
+  //Construye el valor hash para la conexion a la api de marvel
+  function buildHash($rootScope){
+    var ts = new Date().getTime();
+    var hash = CryptoJS.MD5(ts + $rootScope.apiKeyP + $rootScope.apiKey, 'hex');
+    return 'apikey='+$rootScope.apiKey+"&ts="+ts+"&hash="+hash;
+  }
+
+  //Construye la url con los parametros segun los valores indicados por el usuario
+  function buildUrl(url, orderBy, name, $scope){
+    if (orderBy!='' && orderBy!=undefined)
+        url +='&orderBy='+orderBy;
+    if (name!='' && name!=undefined && $scope.search.param=='name')
+        url +='&name='+name;
+    if (name!='' && name!=undefined && $scope.search.param=='nameStartsWith')
+        url +='&nameStartsWith='+name;
+    if (name!='' && name!=undefined && $scope.search.param=='modifiedSince')
+        url +='&modifiedSince='+name;
+    if (name!='' && name!=undefined && $scope.search.param=='comics')
+        url +='&comics='+name;
+    if (name!='' && name!=undefined && $scope.search.param=='series')
+        url +='&series='+name;
+    if (name!='' && name!=undefined && $scope.search.param=='events')
+        url +='&events='+name;
+    if (name!='' && name!=undefined && $scope.search.param=='stories')
+        url +='&stories='+name;
+    return url;
+  }
+
+  //Inicializa el modelos de datos correspondiente a los comics
+  function initComicDescription($scope){
+    $scope.alert=''; // feedback para con el usuario
+    $scope.classFav='add-fav';
+    $scope.ed='';
+    $scope.comicDescription ={};
+    $scope.comicDescription.title ='';
+    $scope.comicDescription.id ='';
+    $scope.comicDescription.description = '';
+    $scope.comicDescription.image ='';
+    $scope.comicDescription.carLink='';
+    $scope.comicDescription.price='';
+  }
+
+  //Incializa el scope
+  function init($scope){
+    $scope.classCSS=['one','two','three','four','five','six','seven','eight','nine','ten'];
+    $scope.searchName='';
+    $scope.classFav='add-fav';
+    $scope.ed='';
+    $scope.comicsFavs = new Array();
+    $scope.alert='';
+    $scope.pagination=[];
+    $scope.search={'param':'name','name':''};
+    $scope.model={
+      'characters' : []
+    };
+  }
+
+  //Obtener personajes consumiendo servicio rest
+  function getCharacters($rootScope, $scope, $http, url, $filter){
+    $http({
+       method: 'GET',
+       headers: $rootScope.headers,
+       url: url
+    }).then(function (data, status, success){ //servicio consumido satisfactoriamente
+        console.log('Paso! ');
+
+        //actualiza modelo de datos con los resultados encontrados
+        $scope.model.characters = data.data.data.results;
+        var charactersTotal = data.data.data.total;
+
+        //Evalua si se encontraron resultados
+        if (data.data.data.total==0){
+          $scope.notFound=true;
+          $scope.search={'param':'nameStartsWith'};
+          $scope.pagination=[];
+        }
+        //Si se encontraron resultados entonces crea una paginacion y reorganiza la lista de comics
+        if (!$scope.notFound){
+          //Me aseguro que cree el arreglo la 1ra vez y las siguientes veces evalua si hay cambio en la cantidad de
+          if ($scope.pagination==undefined || $scope.pagination.length!=charactersTotal)
+            $scope.pagination=Array.from(new Array(Math.ceil(charactersTotal/$rootScope.limit)),(val,index)=>index+1);
+
+          //Reorganiza de forma aleatoria la lista de comics asociados al personaje
+          for(var i = 0; i<$scope.model.characters.length; ++i){
+            $scope.model.characters[i].comics.items=$filter('azar')($scope.model.characters[i].comics.items);
+          }
+        }
+    },function (data, status, error){ //Error en consumo de servicio
+        console.log("Error consumiendo el servicio");
+    });
+  }
+
+  //Obtener comic consumiendo servicio rest
+  function getComic($rootScope, $scope, $http, url){
+    $http({
+       method: 'GET',
+       headers: $rootScope.headers,
+       url: url
+    }).then(function (data, status, success){ //servicio consumido satisfactoriamente
+        console.log('Paso! ');
+        //Guarda los datos del comic en el scope
+        $scope.comicDescription.title = data.data.data.results[0].title;
+        $scope.comicDescription.id = data.data.data.results[0].id;
+        $scope.comicDescription.description = data.data.data.results[0].description;
+        $scope.comicDescription.image = data.data.data.results[0].thumbnail.path+'.'+data.data.data.results[0].thumbnail.extension;
+
+        //Busca el link de compra del comic
+        for (var j=0; j<data.data.data.results[0].urls.length; ++j){
+          if (data.data.data.results[0].urls[j].type=="purchase"){
+            $scope.comicDescription.carLink=data.data.data.results[0].urls[j].url;
+            break;
+          }
+        }
+        //Busca el precio del comic digital
+        for (var j=0; j<data.data.data.results[0].prices.length; ++j){
+          if (data.data.data.results[0].prices[j].type=="digitalPurchasePrice"){
+            $scope.comicDescription.price=data.data.data.results[0].prices[j].price;
+            break;
+          }
+        }
+
+        //Evalua si el comic cargado esta en la lista de comic favoritos y actualiza la clase css correspodiente
+        if ($scope.isComicAddedFav($scope.comicDescription)!=-1){
+          $scope.classFav="added-fav";
+          $scope.ed = "ed";
+        }
+
+    },function (data, status, error){ //Error en consumo de servicio
+        console.log("Error consumiendo el servicio");
+    });
+  }
 })();
