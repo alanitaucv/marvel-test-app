@@ -36,7 +36,7 @@
                 <form role="form">
                   <div class="form-group has-feedback">
                     <input id="search" type="text" class="form-control" ng-model="searchName" placeholder="Search character" ng-keydown="mc.keydown($event, 0)" ng-click="search.param='name'"/>
-                    <i class="form-control-feedback"><img src="./images/export/icons/search.png" alt="" width="25px" height="25px"></i>                
+                    <i class="form-control-feedback"><img src="./images/export/icons/search.png" alt="" width="25px" height="25px"></i>
                   </div>
                 </form>
               </div>
@@ -51,10 +51,10 @@
 
             <div id="pagination" class="row pages" >
               <ul id="paginacion" class="pagination-controle pagination">
-                <li class="left"><a class="num" ng-click="mc.removeOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_left.png" width="20px" height="20px" alt=""></a></li>
+                <li class="left" ng-show='pagination.length>0'><a class="num" ng-click="mc.removeOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_left.png" width="20px" height="20px" alt=""></a></li>
                 <li ng-repeat="page in pagination | limitTo : 5 : pageOffset" ng-click="select(page)" ng-class="{active: isActive(page)}"><a class="num" ng-click="mc.loadCharacters(page-1,orderFilter,searchName)">{{page}}</a></li>
                 <li ng-if='pagination.length>pagination[5+pageOffset]'><a class="num">...</a></li>
-                <li class="right" ><a class="num" ng-click="mc.addOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_right.png" width="20px" height="20px" alt=""></a></li>
+                <li class="right" ng-show='pagination.length>0'><a class="num" ng-click="mc.addOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_right.png" width="20px" height="20px" alt=""></a></li>
              </ul>
 
             </div>
