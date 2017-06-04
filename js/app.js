@@ -23,8 +23,8 @@
       $rootScope.port = '443';
       $rootScope.basePath = '/v1/public/';
       $rootScope.url = $rootScope.host + ':' + $rootScope.port+$rootScope.basePath;
-      $rootScope.apiKey = 'aquiVaTuApiKeyPublica';
-      $rootScope.apiKeyP= 'aquiVaTuApiKeyPrivada';
+      $rootScope.apiKey = '64b478c2ce8591ad0d3598e18352bb5c';
+      $rootScope.apiKeyP= '70fdd466e51bc7197ca0cd8a0a7cc5694a5a222d';
       $rootScope.limit = 10;
       $rootScope.headers =  {
         "Content-Type" : "application/json",
