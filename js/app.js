@@ -32,19 +32,7 @@
       };
   }]);
 
-  //Reorganiza una lista de manera aleatoria
-  app.filter('azar', function() {
-      return function(a) {
-          var r = [];
-          while (a.length)
-            r.push(
-              a.splice((Math.floor(Math.random() * a.length)), 1)[0]
-            );
-          return r;
-      }
-    });
-
-	app.controller('mainController', ['$scope', '$http', '$rootScope','$filter', "$window",  function($scope, $http, $rootScope, $filter, $window){
+	app.controller('mainController', ['$scope', '$http', '$rootScope','$filter', "$window", '$q',  function($scope, $http, $rootScope, $filter, $window, $q){
 
     init($scope);
 
@@ -92,10 +80,10 @@
     //Set pagina inicial
     if ($scope.pagination!=undefined)
       $scope.currentPage=$scope.pagination[0];
-    $scope.pageOffset=0;
+      $scope.pageOffset=0;
 
     //Carga la informacion del comic seleccionado por el usuario
-    this.loadComic = function(comicPath){
+      $scope.loadComic = function(comicPath, type){
       initComicDescription($scope);
 
       //Construye la url para consumir servicio de api marvel
@@ -103,15 +91,17 @@
       url += '?'+buildHash($rootScope);
 
       //consume el servicio de marvel
-      getComic($rootScope, $scope, $http, url);
+      getComic($rootScope, $scope, $http, url, type);
+      // console.log($scope.comicDescription);
     };
 
 
     //Agregar comic a lista de favoritos en localStorage
-    this.addComic = function(comic){
-      //Evalua Si hay menos de 3 comics y el comic no esta en la lista de favoritos
-      if ($scope.comicsFavs.length<3 && $scope.isComicAddedFav(comic)==-1){
+    $scope.addComic = function(comic){
+      //Evalua Si el comic no esta en la lista de favoritos
+      if ($scope.isComicAddedFav(comic)==-1){
           $scope.comicsFavs.push(comic);
+          console.log(angular.toJson(comic));
           $scope.classFav="added-fav";
           $scope.ed = "ed";
 
@@ -121,13 +111,50 @@
           } else {
             console.log("This browser doesn't support localStorage");
           }
-      }else if ($scope.comicsFavs.length==3){ //en caso contrario muestra un mensaje de alerta al usuario
-        $scope.alert='<div class="alert alert-info" role="alert">Your favourite list is full!.<br/> For add an additional comic please remove one first.</div>';
-        console.log('localStorage full');
       }
     }
 
     //Evalua si el comic ya esta presente en la lista de favoritos
+    $scope.addThreeComicsRandom= function(){
+
+      for (var i = 0; i<$scope.comics.length; ++i){
+        if($scope.isComicAddedFav({'id':$scope.comics[i].resourceURI.split('/').slice(-1)[0]})!=-1){
+            $scope.comics.splice(i,1);
+        }
+      }
+
+      for (var i=0; i<$scope.comics.length && i<3; ++i){
+        var comicIndex = createRandom();
+        console.log(comicIndex);
+        var comicId = $scope.comics[comicIndex].resourceURI.split('/').slice(-1)[0];
+
+        //Mientras el comic este en favoritos genera otro random
+        while(($scope.isComicAddedFav({'id':comicId})!=-1)){
+          comicIndex = createRandom();
+          comicId = $scope.comics[comicIndex].resourceURI.split('/').slice(-1)[0];
+          if($scope.isComicAddedFav({'id':comicId})!=-1){
+              $scope.comics.splice(comicIndex,1);
+          }
+        }
+        $scope.loadComic($scope.comics[comicIndex].resourceURI, 1);
+      }
+    }
+
+
+    function createRandom() {
+      return Math.floor((Math.random() * $scope.comics.length));
+    }
+
+    $scope.charactersHasComics= function(){
+      $scope.charactersWithComics = [];
+      for (var j=0 ; j< $scope.model.characters.length; ++j){
+        if ($scope.model.characters[j].comics.items.length>0){
+          $scope.charactersWithComics.push(j);
+        }
+      }
+      // console.log("Personajes con comics"+angular.toJson($scope.charactersWithComics));
+    }
+
     $scope.isComicAddedFav = function(comic){
         for(var c=0; c<$scope.comicsFavs.length;++c){
           if ((comic!=null && comic!=undefined && comic!="") && $scope.comicsFavs[c].id == comic.id){
@@ -216,6 +243,7 @@
     $scope.comicDescription.image ='';
     $scope.comicDescription.carLink='';
     $scope.comicDescription.price='';
+    $scope.comicDescription.uri='';
   }
 
   //Incializa el scope
@@ -241,10 +269,19 @@
        url: url
     }).then(function (data, status, success){ //servicio consumido satisfactoriamente
         console.log('Paso! ');
+        $scope.charactersTotal = 0;
 
         //actualiza modelo de datos con los resultados encontrados
         $scope.model.characters = data.data.data.results;
         var charactersTotal = data.data.data.total;
+        // console.log($scope.model.characters.length);
+
+        $scope.charactersHasComics();
+        $scope.comics = [];
+
+        for (var k=0; k<$scope.charactersWithComics.length; ++k){
+          $scope.comics = $scope.comics.concat($scope.model.characters[$scope.charactersWithComics[k]].comics.items);
+        }
 
         //Evalua si se encontraron resultados
         if (data.data.data.total==0){
@@ -258,29 +295,28 @@
           if ($scope.pagination==undefined || $scope.pagination.length!=charactersTotal)
             $scope.pagination=Array.from(new Array(Math.ceil(charactersTotal/$rootScope.limit)),(val,index)=>index+1);
 
-          //Reorganiza de forma aleatoria la lista de comics asociados al personaje
-          for(var i = 0; i<$scope.model.characters.length; ++i){
-            $scope.model.characters[i].comics.items=$filter('azar')($scope.model.characters[i].comics.items);
-          }
         }
     },function (data, status, error){ //Error en consumo de servicio
         console.log("Error consumiendo el servicio");
     });
   }
 
+
   //Obtener comic consumiendo servicio rest
-  function getComic($rootScope, $scope, $http, url){
+  function getComic($rootScope, $scope, $http, url, type){
     $http({
        method: 'GET',
        headers: $rootScope.headers,
        url: url
     }).then(function (data, status, success){ //servicio consumido satisfactoriamente
         console.log('Paso! ');
+        initComicDescription($scope);
         //Guarda los datos del comic en el scope
         $scope.comicDescription.title = data.data.data.results[0].title;
         $scope.comicDescription.id = data.data.data.results[0].id;
         $scope.comicDescription.description = data.data.data.results[0].description;
         $scope.comicDescription.image = data.data.data.results[0].thumbnail.path+'.'+data.data.data.results[0].thumbnail.extension;
+        $scope.comicDescription.uri = data.data.data.results[0].resourceURI;
 
         //Busca el link de compra del comic
         for (var j=0; j<data.data.data.results[0].urls.length; ++j){
@@ -302,6 +338,16 @@
           $scope.classFav="added-fav";
           $scope.ed = "ed";
         }
+
+        if (type===1){
+          $scope.addComic($scope.comicDescription);
+          if($scope.isComicAddedFav($scope.comicDescription)!=-1){
+              $scope.comics.splice($scope.comics.indexOf($scope.comicDescription),1);
+          }
+
+        }
+
+        // return $scope.comicDescription;
 
     },function (data, status, error){ //Error en consumo de servicio
         console.log("Error consumiendo el servicio");

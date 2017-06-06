@@ -25,7 +25,7 @@
      <h4>Related comics</h4>
      <div class="row comic-title comic-item">
        <p style="padding: 15px; color: #9C9C9C; font-weight: bold;" ng-show='characterInfo.comics.available==0'> NOT FOUND RELATED COMICS </p>
-       <div class="col-lg-6 col-md-6 col-sm-12 " ng-repeat="comic in characterInfo.comics.items">
+       <div class="col-lg-6 col-md-6 col-sm-12 " ng-repeat="comic in characterInfo.comics.items | limitTo: 10">
          <ul class="comic-rel ">
            <li class="comic-rel">
              <a class="a-marvel" role="button" data-toggle="modal" data-target="#myModalMarvel" ng-click="mc.loadComic(comic.resourceURI)">{{comic.name}}</a>
