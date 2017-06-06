@@ -92,7 +92,7 @@
 
       //consume el servicio de marvel
       getComic($rootScope, $scope, $http, url, type);
-      // console.log($scope.comicDescription);
+
     };
 
 
@@ -101,7 +101,6 @@
       //Evalua Si el comic no esta en la lista de favoritos
       if ($scope.isComicAddedFav(comic)==-1){
           $scope.comicsFavs.push(comic);
-          console.log(angular.toJson(comic));
           $scope.classFav="added-fav";
           $scope.ed = "ed";
 
@@ -125,7 +124,6 @@
 
       for (var i=0; i<$scope.comics.length && i<3; ++i){
         var comicIndex = createRandom();
-        console.log(comicIndex);
         var comicId = $scope.comics[comicIndex].resourceURI.split('/').slice(-1)[0];
 
         //Mientras el comic este en favoritos genera otro random
@@ -135,7 +133,9 @@
           if($scope.isComicAddedFav({'id':comicId})!=-1){
               $scope.comics.splice(comicIndex,1);
           }
+
         }
+
         $scope.loadComic($scope.comics[comicIndex].resourceURI, 1);
       }
     }
@@ -301,7 +301,6 @@
     });
   }
 
-
   //Obtener comic consumiendo servicio rest
   function getComic($rootScope, $scope, $http, url, type){
     $http({
@@ -344,10 +343,7 @@
           if($scope.isComicAddedFav($scope.comicDescription)!=-1){
               $scope.comics.splice($scope.comics.indexOf($scope.comicDescription),1);
           }
-
         }
-
-        // return $scope.comicDescription;
 
     },function (data, status, error){ //Error en consumo de servicio
         console.log("Error consumiendo el servicio");
