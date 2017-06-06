@@ -53,7 +53,7 @@
               <ul id="paginacion" class="pagination-controle pagination">
                 <li class="left" ng-show='pagination.length>0'><a class="num" ng-click="mc.removeOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_left.png" width="20px" height="20px" alt=""></a></li>
                 <li ng-repeat="page in pagination | limitTo : 5 : pageOffset" ng-click="select(page)" ng-class="{active: isActive(page)}"><a class="num" ng-click="mc.loadCharacters(page-1,orderFilter,searchName)">{{page}}</a></li>
-                <li ng-if='pagination.length>pagination[5+pageOffset]'><a class="num">...</a></li>
+                <li ng-if='pagination.length>pagination[5+pageOffset]'><a class="num not-active" >...</a></li>
                 <li class="right" ng-show='pagination.length>0'><a class="num" ng-click="mc.addOnePage()"><img class="img-responsive" src="../images/export/icons/btn_arrow_right.png" width="20px" height="20px" alt=""></a></li>
              </ul>
 
